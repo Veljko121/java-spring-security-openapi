@@ -1,4 +1,4 @@
-package com.veljko121.backend.core.exceptions;
+package com.veljko121.backend.core.exception;
 
 public class UsernameNotUniqueException extends AttributeNotUniqueException {
 

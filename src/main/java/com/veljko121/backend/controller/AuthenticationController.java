@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.veljko121.backend.core.dto.ErrorResponseDTO;
-import com.veljko121.backend.core.exceptions.EmailNotUniqueException;
-import com.veljko121.backend.core.exceptions.UsernameNotUniqueException;
+import com.veljko121.backend.core.exception.EmailNotUniqueException;
+import com.veljko121.backend.core.exception.UsernameNotUniqueException;
 import com.veljko121.backend.core.service.IJwtService;
 import com.veljko121.backend.dto.AuthenticationResponseDTO;
 import com.veljko121.backend.dto.CredentialsDTO;

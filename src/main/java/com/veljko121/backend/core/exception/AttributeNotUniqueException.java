@@ -1,4 +1,4 @@
-package com.veljko121.backend.core.exceptions;
+package com.veljko121.backend.core.exception;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.util.StringUtils;

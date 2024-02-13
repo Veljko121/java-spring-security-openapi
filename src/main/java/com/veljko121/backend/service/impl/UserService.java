@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.veljko121.backend.core.exceptions.EmailNotUniqueException;
-import com.veljko121.backend.core.exceptions.UsernameNotUniqueException;
+import com.veljko121.backend.core.exception.EmailNotUniqueException;
+import com.veljko121.backend.core.exception.UsernameNotUniqueException;
 import com.veljko121.backend.model.User;
 import com.veljko121.backend.repository.UserRepository;
 import com.veljko121.backend.service.IUserService;
