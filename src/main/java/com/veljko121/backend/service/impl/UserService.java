@@ -38,27 +38,21 @@ public class UserService implements IUserService {
 
     @Override
     public User save(User user) {
-        if (!isUsernameUnique(user)) throw new UsernameNotUniqueException(user.getUsername());
-        if (!isEmailUnique(user)) throw new EmailNotUniqueException(user.getEmail());
+        if (existsByUsername(user.getUsername())) throw new UsernameNotUniqueException(user.getUsername());
+        if (existsByEmail(user.getEmail())) throw new EmailNotUniqueException(user.getEmail());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    private Boolean isUsernameUnique(User user) {
-        return isUsernameUnique(user.getUsername());
+    @Override
+    public Boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
-
-    private Boolean isEmailUnique(User user) {
-        return isEmailUnique(user.getEmail());
-    }
-
-    private Boolean isUsernameUnique(String username) {
-        return !userRepository.findAll().stream().filter(u -> u.getUsername().equals(username)).findAny().isPresent();
-    }
-
-    private Boolean isEmailUnique(String email) {
-        return !userRepository.findAll().stream().filter(u -> u.getEmail().equals(email)).findAny().isPresent();
+    
+    @Override
+    public Boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
     
 }

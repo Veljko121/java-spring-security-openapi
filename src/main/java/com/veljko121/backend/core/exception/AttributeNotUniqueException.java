@@ -9,4 +9,8 @@ public class AttributeNotUniqueException extends DuplicateKeyException {
         super(StringUtils.capitalize(attribute) + " '" + attributeValue + "' already exists.");
     }
 
+    public AttributeNotUniqueException(String msg) {
+        super(msg);
+    }
+
 }

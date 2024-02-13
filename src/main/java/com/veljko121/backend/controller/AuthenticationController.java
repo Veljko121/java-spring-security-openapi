@@ -2,13 +2,17 @@ package com.veljko121.backend.controller;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.veljko121.backend.core.dto.ErrorResponseDTO;
+import com.veljko121.backend.core.dto.ExistsResponseDTO;
 import com.veljko121.backend.core.exception.EmailNotUniqueException;
 import com.veljko121.backend.core.exception.UsernameNotUniqueException;
 import com.veljko121.backend.core.service.IJwtService;
@@ -27,11 +31,9 @@ import lombok.RequiredArgsConstructor;
 public class AuthenticationController {
 
     private final IAuthenticationService authenticationService;
-
-    private final ModelMapper modelMapper;
-
     private final IJwtService jwtService;
 
+    private final ModelMapper modelMapper;
     private final Logger logger;
 
     @PostMapping("/register")
@@ -43,7 +45,7 @@ public class AuthenticationController {
             var jwt = jwtService.generateJwt(user);
             var authenticationResponse = new AuthenticationResponseDTO(jwt);
     
-            return ResponseEntity.ok().body(authenticationResponse);
+            return ResponseEntity.status(HttpStatus.CREATED).body(authenticationResponse);
 
         } catch (UsernameNotUniqueException e) {
             logger.error(e.getMessage());
@@ -62,6 +64,16 @@ public class AuthenticationController {
         var authenticationResponse = new AuthenticationResponseDTO(jwt);
 
         return ResponseEntity.ok().body(authenticationResponse);
+    }
+
+    @GetMapping("{username}/username-exists")
+    public ResponseEntity<ExistsResponseDTO> usernameExists(@PathVariable String username) {
+        return ResponseEntity.ok().body(new ExistsResponseDTO(authenticationService.usernameExists(username)));
+    }
+
+    @GetMapping("{email}/email-exists")
+    public ResponseEntity<ExistsResponseDTO> emailExists(@PathVariable String email) {
+        return ResponseEntity.ok().body(new ExistsResponseDTO(authenticationService.emailExists(email)));
     }
     
 }

@@ -2,7 +2,6 @@ package com.veljko121.backend.service.impl;
 
 import java.time.LocalDateTime;
 
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class AuthenticationService implements IAuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public User register(User user) throws DuplicateKeyException {
+    public User register(User user) {
         user.setCreatedDateTime(LocalDateTime.now());
         user.setRole(Role.USER);
         return userService.save(user);
@@ -36,6 +35,16 @@ public class AuthenticationService implements IAuthenticationService {
             new UsernamePasswordAuthenticationToken(credentialsDTO.getUsername(), credentialsDTO.getPassword())
         );
         return userService.findByUsername(credentialsDTO.getUsername());
+    }
+
+    @Override
+    public Boolean usernameExists(String username) {
+        return userService.existsByUsername(username);
+    }
+
+    @Override
+    public Boolean emailExists(String email) {
+        return userService.existsByEmail(email);
     }
     
 }
