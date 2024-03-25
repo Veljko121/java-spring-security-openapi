@@ -23,6 +23,7 @@ import com.veljko121.backend.model.User;
 import com.veljko121.backend.service.IAuthenticationService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -72,7 +73,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("{email}/email-exists")
-    public ResponseEntity<ExistsResponseDTO> emailExists(@PathVariable String email) {
+    public ResponseEntity<ExistsResponseDTO> emailExists(@PathVariable @Email String email) {
         return ResponseEntity.ok().body(new ExistsResponseDTO(authenticationService.emailExists(email)));
     }
     
