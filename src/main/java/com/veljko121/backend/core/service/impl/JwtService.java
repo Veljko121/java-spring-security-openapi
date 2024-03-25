@@ -21,10 +21,8 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtService implements IJwtService {
 
-    @Value("${application.jwt.secret-key}")
-    private String SECRET_KEY; 
-    @Value("${application.jwt.expiration-minutes}")
-    private Integer expirationMinutes = 60;
+    @Value("${application.jwt.secret-key}") private String SECRET_KEY; 
+    @Value("${application.jwt.expiration-minutes}") private Integer expirationMinutes = 60;
     private Integer expirationMilliseconds = expirationMinutes * 60 * 1000;
 
     public String extractUsername(String jwt) {
