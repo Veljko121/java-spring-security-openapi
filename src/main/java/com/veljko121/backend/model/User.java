@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +20,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 @Data
 @Entity
@@ -31,21 +34,26 @@ public class User implements UserDetails {
     private Integer id;
 
     @NotEmpty
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
     
     @NotEmpty
     @Email
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @CreationTimestamp
+    @Setter(value = AccessLevel.NONE)
+    private LocalDateTime createdDateTime;
     
     @NotEmpty
+    @Column(nullable = false)
     private String password;
-
+    
     @Enumerated
+    @Column(nullable = false)
     private Role role;
-
-    private LocalDateTime createdDateTime;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

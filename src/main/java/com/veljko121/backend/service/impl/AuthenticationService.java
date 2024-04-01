@@ -1,7 +1,5 @@
 package com.veljko121.backend.service.impl;
 
-import java.time.LocalDateTime;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -24,7 +22,6 @@ public class AuthenticationService implements IAuthenticationService {
 
     @Override
     public User register(User user) {
-        user.setCreatedDateTime(LocalDateTime.now());
         user.setRole(Role.USER);
         return userService.save(user);
     }
