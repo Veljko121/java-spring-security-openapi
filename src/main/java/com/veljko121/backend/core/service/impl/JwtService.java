@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.veljko121.backend.core.service.IJwtService;
+import com.veljko121.backend.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -32,6 +33,14 @@ public class JwtService implements IJwtService {
     public <T> T extractClaim(String jwt, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(jwt);
         return claimsResolver.apply(claims);
+    }
+
+    public String generateJwt(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
+        claims.put("username", user.getUsername());
+        claims.put("role", user.getRole().toString());
+        return generateJwt(claims, user);
     }
 
     public String generateJwt(UserDetails userDetails) {
