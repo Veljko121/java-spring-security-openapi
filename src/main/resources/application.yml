@@ -1,0 +1,50 @@
+# spring.application.name=java-spring-security-openapi
+
+# server.port=${SERVER_PORT:8080}
+
+# spring.datasource.driverClassName=org.postgresql.Driver
+# spring.datasource.url=jdbc:postgresql://${DATABASE_HOST:localhost}:5432/backend
+# spring.datasource.username=postgres
+# spring.datasource.password=super
+
+# spring.sql.init.platform=postgres
+# spring.sql.init.mode=always
+
+# spring.jpa.defer-datasource-initialization=true
+# spring.jpa.hibernate.ddl-auto=create-drop
+# spring.jpa.show-sql=false
+# spring.jpa.properties.hibernate.format_sql=false
+# spring.jpa.open-in-view=false
+
+# application.jwt.secret-key=1E9C4A0D68F73B8C21A6D05B8C9F2E7A8B2D1C4A9F3C6A7F0B2E5D8C1A4F7E2B5D8C1A9F3E6A7F0B2E5D8C1A4F7E2
+# application.jwt.expiration-minutes=60
+
+spring:
+  application:
+    name: java-spring-security-openapi
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:5432/backend
+    username: $(DATABASE_USER:postgres)
+    password: $(DATABASE_PASSWORD:super)
+  sql:
+    init:
+      platform: postgres
+      mode: always
+  jpa:
+    defer-datasource-initialization: true
+    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+        hibernate:
+            format_sql[:] false
+    open-in-view: false
+
+server:
+  port: ${SERVER_PORT:8080}
+
+application:
+  jwt:
+    secret-key: 1E9C4A0D68F73B8C21A6D05B8C9F2E7A8B2D1C4A9F3C6A7F0B2E5D8C1A4F7E2B5D8C1A9F3E6A7F0B2E5D8C1A4F7E2
+    expiration-minutes: 60
