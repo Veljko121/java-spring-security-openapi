@@ -18,13 +18,14 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class JwtService implements IJwtService {
 
     @Value("${application.jwt.secret-key}") private String SECRET_KEY; 
-    @Value("${application.jwt.expiration-minutes}") private Integer expirationMinutes = 60;
-    private Integer expirationMilliseconds = expirationMinutes * 60 * 1000;
+    @Value("${application.jwt.expiration-minutes}") private Integer expirationMinutes;
 
     public String extractUsername(String jwt) {
         return extractClaim(jwt, Claims::getSubject);
@@ -49,6 +50,7 @@ public class JwtService implements IJwtService {
 
     public String generateJwt(Map<String, Object> extraClaims, UserDetails userDetails) {
         var currentTimeMilliseconds = System.currentTimeMillis();
+        var expirationMilliseconds = expirationMinutes * 60 * 1000;
         return Jwts
             .builder()
             .claims(extraClaims)
