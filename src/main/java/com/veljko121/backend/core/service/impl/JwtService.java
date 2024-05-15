@@ -8,6 +8,7 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -87,6 +88,22 @@ public class JwtService implements IJwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         var key = Keys.hmacShaKeyFor(keyBytes);
         return key;
+    }
+
+    public String getLoggedInUserUsername() {
+        return extractUsername(getJwtFromContext());
+    }
+
+    public Integer extractId(String jwt) {
+        return (Integer) extractAllClaims(jwt).get("id");
+    }
+
+    public Integer getLoggedInUserId() {
+        return extractId(getJwtFromContext());
+    }
+
+    private String getJwtFromContext() {
+        return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
     
 }
