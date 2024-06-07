@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+  songbookdb:
+    container_name: backend-database
+    image: postgres
+    environment:
+      - POSTGRES_DB=songbook
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=super
+    volumes:
+      - songbook-data:/var/lib/postgresql/data
+  
+  songbook:
+    build: .
+    image: songbook
+    container_name: songbook
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - songbookdb
+    environment:
+      - DATABASE_HOST=songbookdb
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=super
+
+volumes:
+  songbook-data:
+    driver: local
+    name: songbook-data
