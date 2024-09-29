@@ -1,4 +1,4 @@
-FROM maven:3-eclipse-temurin-22-alpine AS build
+FROM maven:3-eclipse-temurin-23-alpine AS build
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN mvn dependency:resolve
 COPY . .
 RUN mvn package -DskipTests
 
-FROM openjdk:22-jdk-slim as final
+FROM openjdk:23-jdk-slim as final
 
 WORKDIR /
 
