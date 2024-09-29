@@ -16,28 +16,39 @@ public abstract class CRUDService<T, ID> implements ICRUDService<T, ID> {
         this.repository = repository;
     }
 
+    @Override
     public T findById(ID id) throws NoSuchElementException {
         return repository.findById(id).orElseThrow();
     }
 
+    @Override
     public Collection<T> findAll() {
         return repository.findAll();
     }
 
+    @Override
     public Collection<T> findAllByIds(Iterable<ID> ids) {
         return repository.findAllById(ids);
     }
 
+    @Override
     public T save(T entity) {
         return repository.save(entity);
     }
 
+    @Override
     public void deleteById(ID id) {
         repository.deleteById(id);
     }
-
+    
+    @Override
     public void delete(T entity) {
         repository.delete(entity);
+    }
+
+    @Override
+    public void deleteAll() {
+        repository.deleteAll();
     }
     
 }
