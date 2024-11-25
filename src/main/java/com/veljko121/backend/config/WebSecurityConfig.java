@@ -33,7 +33,7 @@ public class WebSecurityConfig {
         "/swagger-ui/**",
         "/webjars/**",
         "/*.html",
-        "favicon.ico",
+        "/favicon.ico",
         "/*/*.html",
         "/*/*.css",
         "/*/*.js",
