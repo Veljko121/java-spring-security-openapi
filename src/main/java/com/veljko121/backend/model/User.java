@@ -17,7 +17,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,11 +27,11 @@ import lombok.Setter;
 @Getter @Setter
 public class User extends GenericEntity implements UserDetails {
 
-    @NotEmpty
+    @NotBlank
     @Column(unique = true, nullable = false)
     private String username;
     
-    @NotEmpty
+    @NotBlank
     @Email
     @Column(unique = true, nullable = false)
     private String email;
@@ -41,7 +41,7 @@ public class User extends GenericEntity implements UserDetails {
     @Setter(value = AccessLevel.NONE)
     private LocalDateTime createdDateTime;
     
-    @NotEmpty
+    @NotBlank
     @Column(nullable = false)
     private String password;
     
