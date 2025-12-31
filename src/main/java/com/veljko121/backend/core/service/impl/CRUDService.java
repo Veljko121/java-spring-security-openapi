@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.lang.NonNull;
 
 import com.veljko121.backend.core.service.ICRUDService;
 
@@ -17,7 +18,7 @@ public abstract class CRUDService<T, ID> implements ICRUDService<T, ID> {
     }
 
     @Override
-    public T findById(ID id) throws NoSuchElementException {
+    public T findById(@NonNull ID id) throws NoSuchElementException {
         return repository.findById(id).orElseThrow();
     }
 
@@ -27,22 +28,22 @@ public abstract class CRUDService<T, ID> implements ICRUDService<T, ID> {
     }
 
     @Override
-    public Collection<T> findAllByIds(Iterable<ID> ids) {
+    public Collection<T> findAllByIds(@NonNull Iterable<ID> ids) {
         return repository.findAllById(ids);
     }
 
     @Override
-    public T save(T entity) {
+    public T save(@NonNull T entity) {
         return repository.save(entity);
     }
 
     @Override
-    public void deleteById(ID id) {
+    public void deleteById(@NonNull ID id) {
         repository.deleteById(id);
     }
     
     @Override
-    public void delete(T entity) {
+    public void delete(@NonNull T entity) {
         repository.delete(entity);
     }
 

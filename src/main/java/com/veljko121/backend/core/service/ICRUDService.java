@@ -3,19 +3,21 @@ package com.veljko121.backend.core.service;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
+import org.springframework.lang.NonNull;
+
 public interface ICRUDService<T, ID> {
 
-    T findById(ID id) throws NoSuchElementException;
+    T findById(@NonNull ID id) throws NoSuchElementException;
 
     Collection<T> findAll();
 
-    Collection<T> findAllByIds(Iterable<ID> ids);
+    Collection<T> findAllByIds(@NonNull Iterable<ID> ids);
 
-    T save(T entity);
+    T save(@NonNull T entity);
 
-    void deleteById(ID id);
+    void deleteById(@NonNull ID id);
 
-    void delete(T entity);
+    void delete(@NonNull T entity);
 
     void deleteAll();
     
